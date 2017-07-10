@@ -11,12 +11,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import './style/usage/core/reset.scss';
-@import './style/usage/module/common.scss';
-
-#app {
-  height:100%;
-  width:100%;
-  
-}
+	@import './style/usage/app.scss';
+	@font-face {
+	  font-family: 'yofont';
+	  src: url('./assets/iconfont.woff') format('woff'),
+	       url('/assets/iconfont.ttf') format('truetype');
+	}
+	#app {
+	  height:100%;
+	  width:100%;
+	  
+	}
 </style>

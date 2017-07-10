@@ -2,22 +2,22 @@
   <div class="index-box">
     <header class="index-header">
       <a href=""><span class="yo-ico">&#xe603;</span></a>
-      <a href=""><span class="yo-ico">&#xe6ef;</span></a>
+      <a href=""><span class="yo-ico myicon">&#xe6ef;</span></a>
     </header>
     <section class="top-section">
       <ul>
-        <li>
-          <p><span class="yo-ico">&#xe603;</span></p>
+        <li> 
+          <p><span class="yo-ico myicon">&#xe66c;</span></p>
           <p><span class="num">0</span><span>min</span></p>
           <p><span>累计时长</span></p>
         </li>
         <li>
-          <p><span class="yo-ico">&#xe603;</span></p>
+          <p><span class="yo-ico myicon">&#xe647;</span></p>
           <p><span class="num">00</span><span>″</span></p>
           <p><span>平均配速</span></p>
         </li>
         <li>
-          <p><span class="yo-ico">&#xe603;</span></p>
+          <p><span class="yo-ico myicon">&#xe73c;</span></p>
           <p><span class="num">0</span><span></span></p>
           <p><span>累计次数</span></p>
         </li>
@@ -40,12 +40,14 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../style/usage/core/reset.scss';
+  @import '../style/usage/app.scss';
 
   .index-box{
     span{
       color:rgba(255,255,255,.9);
-
+    }
+    .myicon{
+      font-size:.22rem;
     }
     height:100%;
     width:100%;
