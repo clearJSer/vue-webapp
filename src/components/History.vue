@@ -35,8 +35,6 @@
   .history-box{
     width:100%;
     height:100%;
-
-
     .date{
       padding:0 .2rem;
       display:flex;
