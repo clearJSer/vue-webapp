@@ -1,9 +1,9 @@
 <template lang="html">
 	 <div class="header">
-      <a href="" class="menu" v-if="showmenu === true">
+      <a href="javascript:;" class="menu" v-if="showmenu === true">
        <span class="yo-ico">&#xe603;</span>
       </a>
-       <a href="" class="menu" v-else>
+       <a href="javascript:;" class="menu" v-else @click="goBack" >
          返回
       </a>
       {{title}}
@@ -13,7 +13,12 @@
 
 <script>
 	export default{
-      props:["title","showmenu"]
+      props:["title","showmenu"],
+      methods:{
+        goBack:function(){
+          this.$router.go(-1)
+        }
+      }
 	}
 </script>
 

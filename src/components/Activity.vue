@@ -1,10 +1,12 @@
 <template>
 	<div class="activity-box">
 		<my-header title="活 动" :showmenu="showmenu" />
-		<div class="list">
-			<div class="mask"></div>
+		<div class="list" v-infinite-scroll="loadMore"
+					  infinite-scroll-disabled="loading"
+					  infinite-scroll-distance="100">
+			<div class="mask" v-if="!loaded"></div>
 			<ul>
-				<li v-for="(v,i) in listData">
+				<li v-for="(v,i) in listData" @click="toDetail(v.aid)">
 					<img :src="v.cover" alt="" />
 					<p class="title">{{v.title}}</p>
 					<div class="hot">HOT</div>
@@ -18,22 +20,59 @@
 <script>
   import Header from './Header'
   import axios from 'axios'
+  import { Indicator } from 'mint-ui';
+  import { InfiniteScroll } from 'mint-ui';
+  import Vue from 'vue';
+  Vue.use(InfiniteScroll);
+  import 'mint-ui/lib/style.css'
   export default{
   	data(){
   		return{
 	  		"showmenu":true,
 	  		//list列表数据结合
-	  		"listData":[]
+	  		"listData":[],
+	  		"loaded" : false,
+	  		"startIndex":0,
+	  		"pageSize":10
   		}
   	}
   	,
     components: {
       'my-header': Header
     },
+    methods:{
+    	toDetail(aid){
+    		this.$router.push({name:'detail',params:{aid:aid}})
+    	},
+    	loadMore() {
+    		console.log(111)
+		    this.loading = true;
+		    this.startIndex += 10;
+		 //拉取数据
+    	axios({
+    		url:`/api/front/activity/list.jsp?startIndex=${this.startIndex}&pageSize=${this.pageSize}`,
+    		method:'get'
+    	})
+    	.then(response => {
+    		this.listData = this.listData.concat(response.data.data)
+    		 this.loading = false;
+    	})
+    	.catch(err=>{
+    		console.log("加载更多"+err)
+    	})
+		}
+    	
+    },
     mounted(){
+    	if(!this.loaded){
+			Indicator.open({
+			  text: '加载中...',
+			  spinnerType: 'fading-circle'
+			});
+    	}
     	//拉取数据
     	axios({
-    		url:'/api/front/activity/list.jsp?startIndex=0&pageSize=10',
+    		url:`/api/front/activity/list.jsp?startIndex=${this.startIndex}&pageSize=${this.pageSize}`,
     		//url:'/douban/v2/movie/in_theaters',
     		method:'get'
     	})
@@ -41,6 +80,8 @@
     		//console.log(response.data.subjects[0].title)
     		//console.log(response.data.data[0].title)
     		this.listData = response.data.data
+    		this.loaded = true;
+    		Indicator.close()
     	})
     	.catch(err=>{
     		console.log("xxxxx"+err)
@@ -58,7 +99,20 @@
 	.list{
 		width:100%;
 		height:100%;
+		position:relative;
 		overflow:scroll;
+		.mask{
+			position: absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			background:rgba(0,0,0,0.5);
+			z-index:1000;
+		}
+		.mint-indicator-wrapper{
+			z-index:9999;
+		}
 		ul{
 			li{
 				img{

@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import bus from './Bus'
 const tagBarData = [
   {
     title:'运  动',
@@ -78,6 +79,13 @@ export default {
     }
   },
   mounted(){
+    // setTimeout(()=>{
+    //   this.showMenu = true;
+    // },2000)
+    bus.$on('openMenu',function(){
+      this.hideMenu =false;
+      this.showMenu =true;
+    }.bind(this))
   },
   methods:{
     changeTab:function(i){
@@ -104,7 +112,7 @@ export default {
   .menu-box{
     position:absolute;
     top:0;
-    left:0;
+    left:-80%;
     @include flexbox();
     @include flex-direction(column)
     width:80%;
@@ -171,12 +179,12 @@ export default {
 
   @keyframes slideInLeft {
     from {
-      transform: translate3d(-100%, 0, 0);
+      left: -80%;
       visibility: visible;
     }
 
     to {
-      transform: translate3d(0, 0, 0);
+      left:0%;
     }
   }
 
@@ -186,11 +194,11 @@ export default {
   }
   @keyframes slideInRight {
     from {
-      transform: translate3d(0, 0, 0);
+      left: 0%;
       visibility: visible;
     }
     to {
-      transform: translate3d(-100%, 0, 0);
+      left: -80%;
     }
 
   }

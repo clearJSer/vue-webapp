@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="index-box">
     <header class="index-header">
-      <a href=""><span class="yo-ico">&#xe603;</span></a>
-      <a href=""><span class="yo-ico myicon">&#xe6ef;</span></a>
+      <a href="javascript:;" @click="openMenu" ><span class="yo-ico">&#xe603;</span></a>
+      <a href="javascript:;"><span class="yo-ico myicon">&#xe6ef;</span></a>
     </header>
     <section class="top-section">
       <ul>
@@ -36,7 +36,15 @@
 </template>
 
 <script >
-    export default{}
+ import bus from './Bus'
+    export default{
+      methods:{
+        openMenu:function(){
+         // console.log('open')
+         bus.$emit('openMenu')
+        }
+      }
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -1,17 +1,21 @@
 <template lang="html">
 	<div class="box">
-		<img src="../assets/images/welcome.png" @click="gotoIndex" alt="welcome">
+		<img src="../assets/images/welcome.png"  alt="welcome">
 	</div>
 </template>
 
 <script>
-	export default{
-		methods:{
-			gotoIndex:function(){
-				this.$router.push('/index')
-			}
-		}
+
+export default{
+	methods:{
+		
+	},
+	mounted(){
+	 setTimeout(()=>{
+		this.$router.push('/index')
+	 },1500)
 	}
+}
 </script>
 
 <style lang="scss">

@@ -9,6 +9,7 @@ import Activity from '@/components/Activity'
 import Medal from '@/components/Medal'
 import AddressList from '@/components/AddressList'
 import My from '@/components/My'
+import Detail from '@/components/Detail'
 import Splash from '@/components/Splash'
 
 Vue.use(Router)
@@ -50,6 +51,11 @@ export default new Router({
           path: '/activity',
           name: 'Activity',
           component: Activity
+        },
+        {
+          path: '/detail/:aid',
+          name: 'detail',
+          component: Detail
         },
         {
           path: '/medal',
