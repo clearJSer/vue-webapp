@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="history-box" id="history-box">
-    <my-header/>
+    <my-header title="跑步历史" :showmenu="showmenu"/>
     <div class="date">
       <a href=""><span class="yo-ico pre">&#xe602;</span></a>
       <span >2017年7月</span>
@@ -24,6 +24,11 @@
 <script >
   import Header from './Header'
   export default{
+    data(){
+      return{
+      "showmenu": true
+      }
+    },
     components: {
       'my-header': Header
     }

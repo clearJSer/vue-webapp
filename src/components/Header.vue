@@ -1,14 +1,19 @@
 <template lang="html">
 	 <div class="header">
-      <a href="" class="menu"><span class="yo-ico">&#xe603;</span></a>
-      跑步历史
+      <a href="" class="menu" v-if="showmenu === true">
+       <span class="yo-ico">&#xe603;</span>
+      </a>
+       <a href="" class="menu" v-else>
+         返回
+      </a>
+      {{title}}
     </div>
 
 </template>
 
 <script>
 	export default{
-
+      props:["title","showmenu"]
 	}
 </script>
 
