@@ -1,18 +1,23 @@
 <template>
 	<div class="activity-box">
 		<my-header title="活 动" :showmenu="showmenu" />
-		<div class="list" v-infinite-scroll="loadMore"
-					  infinite-scroll-disabled="loading"
-					  infinite-scroll-distance="100">
-			<div class="mask" v-if="!loaded"></div>
-			<ul>
-				<li v-for="(v,i) in listData" @click="toDetail(v.aid)">
-					<img :src="v.cover" alt="" />
-					<p class="title">{{v.title}}</p>
-					<div class="hot">HOT</div>
-					<div class="like"><span class="likeNum">{{v.like}}</span>❤️</div>
-				</li>
-			</ul>
+		<div class="haha">
+			<div class="list" v-infinite-scroll="loadMore" infinite-scroll-disabled="false"
+				  infinite-scroll-distance="10">
+				<div class="mask" v-if="!loaded"></div>
+				<ul>
+					<li v-for="(v,i) in listData" @click="toDetail(v.aid)">
+						<img :src="v.cover" alt="" />
+						<p class="title">{{v.title}}</p>
+						<div class="hot" v-if="v.isHot">HOT</div>
+						<div class="hot over" v-else>已结束</div>
+						<div class="like" @click.stop="addLike"><span :like="v.like" class="likeNum">{{v.like}}</span>❤️</div>
+					</li>
+				</ul>
+			</div>
+			<div class="noload">
+				<loading/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -22,6 +27,7 @@
   import axios from 'axios'
   import { Indicator } from 'mint-ui';
   import { InfiniteScroll } from 'mint-ui';
+  import Loading from './common/Loading'
   import Vue from 'vue';
   Vue.use(InfiniteScroll);
   import 'mint-ui/lib/style.css'
@@ -38,28 +44,35 @@
   	}
   	,
     components: {
-      'my-header': Header
+      'my-header': Header,
+      'loading' :Loading
     },
     methods:{
     	toDetail(aid){
     		this.$router.push({name:'detail',params:{aid:aid}})
     	},
     	loadMore() {
-    		console.log(111)
-		    this.loading = true;
+		    //this.isnoload = true;
 		    this.startIndex += 10;
-		 //拉取数据
-    	axios({
-    		url:`/api/front/activity/list.jsp?startIndex=${this.startIndex}&pageSize=${this.pageSize}`,
-    		method:'get'
-    	})
-    	.then(response => {
-    		this.listData = this.listData.concat(response.data.data)
-    		 this.loading = false;
-    	})
-    	.catch(err=>{
-    		console.log("加载更多"+err)
-    	})
+			 //拉取数据
+	    	axios({
+	    		url:`/api/front/activity/list.jsp?startIndex=${this.startIndex}&pageSize=${this.pageSize}`,
+	    		method:'get'
+	    	})
+	    	.then(response => {
+	    		this.listData = this.listData.concat(response.data.data)
+	    	})
+	    	.catch(err=>{
+	    		console.log("加载更多"+err)
+	    	})
+		},
+		addLike(event){
+			var like = parseInt(event.currentTarget.firstChild.innerHTML);
+			var oldLike = parseInt(event.currentTarget.firstChild.getAttribute("like"));
+			console.log(oldLike)
+			if(like === oldLike ){
+				event.currentTarget.firstChild.innerHTML = ++like;
+			}
 		}
     	
     },
@@ -95,12 +108,17 @@
 	.activity-box{
 		width:100%;
 		height:100%;
+		@include flexbox();
+		@include flex-direction(column);
+	}
+	.haha{
+		@include flex(1);
+		width:100%;
+		overflow:scroll;
 	}
 	.list{
 		width:100%;
-		height:100%;
 		position:relative;
-		overflow:scroll;
 		.mask{
 			position: absolute;
 			top:0;
@@ -115,12 +133,14 @@
 		}
 		ul{
 			li{
+				width:100%;
+				height:2rem;
 				img{
 					width:100%;
 					height:100%;
 				}
 				position:relative;
-				@include border(0 0 3px 0,black)
+				border:1px solid black;
 				.title{
 					position:absolute;
 					bottom:0;
@@ -159,7 +179,16 @@
 					text-align:center;
 					@include border-radius(0 0 0.08rem 0.08rem)
 				}
+				.over{
+					background:#ccc;
+				}
 			}
 		}
 	}
+	.noload{
+		@include flexbox();
+		@include justify-content(center)
+		@include align-items(center)
+	}
+
 </style>

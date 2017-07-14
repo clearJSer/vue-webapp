@@ -12,6 +12,10 @@ import My from '@/components/My'
 import Detail from '@/components/Detail'
 import Splash from '@/components/Splash'
 
+import Go from '@/components/sport/Go'
+import Start from '@/components/sport/Start'
+import Warmup from '@/components/sport/Warmup'
+
 Vue.use(Router)
 
 export default new Router({
@@ -71,6 +75,21 @@ export default new Router({
           path: '/my',
           name: 'My',
           component: My
+        },
+        {
+          path: '/go',
+          name: 'Go',
+          component: Go
+        },
+        {
+          path: '/start',
+          name: 'Start',
+          component: Start
+        },
+        {
+          path: '/warmup',
+          name: 'Warmup',
+          component: Warmup
         }
       ]
     }

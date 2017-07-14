@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" @click="clickHideMenu">
 
     <router-view></router-view>
     
     <transition name="slideInRight">
-      <div class="menu-box" v-bind:class="{slideInRight:hideMenu,slideInLeft:showMenu}">
+      <div class="menu-box" v-bind:class="openMenu">
         <header>
           <a href="" class='userHeader'>&nbsp;这里是头像</a>
           <dl>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import bus from './Bus'
 const tagBarData = [
   {
     title:'运  动',
@@ -78,18 +77,36 @@ export default {
       showMenu :false
     }
   },
+  computed:{
+    openMenu(){
+      if(this.$store.state.isOpenMenu=="first"){
+        //app 首次打开不展示菜单
+        // return{
+        //   slideInRight:false,
+        //   slideInLeft:true
+        // }
+        return;
+      }else if(this.$store.state.isOpenMenu){
+        return{
+          slideInRight:true,
+          slideInLeft:false
+        }
+      }else{
+        return{
+          slideInRight:false,
+          slideInLeft:true
+        }
+      }
+    }
+  },
   mounted(){
-    // setTimeout(()=>{
-    //   this.showMenu = true;
-    // },2000)
-    bus.$on('openMenu',function(){
-      this.hideMenu =false;
-      this.showMenu =true;
-    }.bind(this))
   },
   methods:{
     changeTab:function(i){
-      this.hideMenu = !this.hideMenu;
+      this.$store.commit('vuexCloseMenu')
+    },
+    clickHideMenu(){
+      this.$store.commit('vuexCloseMenu')
     }
   }
 }
@@ -179,12 +196,12 @@ export default {
 
   @keyframes slideInLeft {
     from {
-      left: -80%;
+      left: 0%;
       visibility: visible;
     }
 
     to {
-      left:0%;
+      left:-80%;
     }
   }
 
@@ -194,11 +211,11 @@ export default {
   }
   @keyframes slideInRight {
     from {
-      left: 0%;
+      left: -80%;
       visibility: visible;
     }
     to {
-      left: -80%;
+      left: 0%;
     }
 
   }

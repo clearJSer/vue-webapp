@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="index-box">
     <header class="index-header">
-      <a href="javascript:;" @click="openMenu" ><span class="yo-ico">&#xe603;</span></a>
+      <a href="javascript:;" @click.stop="openMenu" ><span class="yo-ico">&#xe603;</span></a>
       <a href="javascript:;"><span class="yo-ico myicon">&#xe6ef;</span></a>
     </header>
     <section class="top-section">
@@ -30,18 +30,20 @@
       </div>
     </section>
     <section class="btn">
-      <div class="btn-box">GO</div>
+      <div class="btn-box" @click.stop="go">GO</div>
     </section>
   </div>
 </template>
 
 <script >
- import bus from './Bus'
     export default{
       methods:{
         openMenu:function(){
-         // console.log('open')
-         bus.$emit('openMenu')
+         this.$store.commit('vuexOpenMenu')
+        },
+        go(){
+          //跳转到开始跑步页面
+          this.$router.push({name:'Go'})
         }
       }
     }

@@ -1,6 +1,6 @@
 <template lang="html">
 	 <div class="header">
-      <a href="javascript:;" class="menu" v-if="showmenu === true">
+      <a href="javascript:;" @click.stop="openMenu" class="menu" v-if="showmenu === true">
        <span class="yo-ico">&#xe603;</span>
       </a>
        <a href="javascript:;" class="menu" v-else @click="goBack" >
@@ -8,7 +8,6 @@
       </a>
       {{title}}
     </div>
-
 </template>
 
 <script>
@@ -17,6 +16,9 @@
       methods:{
         goBack:function(){
           this.$router.go(-1)
+        },
+        openMenu:function(){
+          this.$store.commit('vuexOpenMenu')
         }
       }
 	}

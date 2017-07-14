@@ -16,6 +16,9 @@
 		},
 		components:{
 			'my-header' : Header
+		},
+		mounted(){
+			console.log(this.$route.params.aid)
 		}
 	}
 </script>
