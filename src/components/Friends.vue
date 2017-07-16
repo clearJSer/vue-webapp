@@ -105,12 +105,11 @@
 		}
 		.addfriends{
 			overflow:scroll;
-			ul{
+			ul{	
 				@include flexbox();
-				background:#fff;
 				li{
 					width:1.5rem;
-						height:2.3rem;
+					height:2.3rem;
 					img{
 						width:1.5rem;
 						height:2.3rem;

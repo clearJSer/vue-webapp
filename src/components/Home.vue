@@ -27,10 +27,12 @@
       <div class="km-box">
         <span class="km-num">{{kmNum}}</span>
         <span class="km-text">km</span>
+        <span>{{addKm}}</span>
       </div>
     </section>
     <section class="btn">
-      <div class="btn-box" @click.stop="go">GO</div>
+      <div class="btn-box" v-if="isGo" @click.stop="go">GO</div>
+      <div class="btn-box" v-else @click.stop="stop">STOP</div>
     </section>
   </div>
 </template>
@@ -39,10 +41,28 @@
     export default{
       data(){
         return{
-          kmNum:"0.00"
+          kmNum:"0.00",
+          isGo:true,
+          timer: null
+        }
+      },
+      computed:{
+        addKm(){
+          if(this.$store.state.start){
+            this.add()
+            this.isGo = false
+          }
         }
       },
       methods:{
+        stop(){
+          this.$store.commit('stop')
+          console.log(this.$store.state.start)
+          clearInterval(this.timer)
+          this.isGo = true
+          clearInterval(this.timer)
+          this.kmNum = '0.00'
+        },
         openMenu:function(){
          this.$store.commit('vuexOpenMenu')
         },
@@ -51,16 +71,17 @@
           this.$router.push({name:'Go'})
         },
         add(){
-          var timer = setInterval(()=>{
+          this.timer = setInterval(()=>{
             this.kmNum  = (parseFloat(this.kmNum)+0.01).toFixed(2)
             if(this.kmNum > 2){
-              clearInterval(timer)
+              clearInterval(this.timer)
             }
           },1000)
         }
       },
       mounted(){
        // this.add()
+       console.log(this.$store.state.start)
       }
     }
 </script>

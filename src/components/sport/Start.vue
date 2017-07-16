@@ -33,6 +33,7 @@ export default {
   	
   	start(){
   	   this.$router.push({name:'Home'})
+       this.$store.commit('start')
   	},
   	addTime(){
   		this.number += 10;
@@ -49,6 +50,7 @@ export default {
   		if(this.number == 0){
         this.$router.push({name:'Home'})
   			clearInterval(timer);
+        this.$store.commit('start')
   		}
   	},1000)
   }

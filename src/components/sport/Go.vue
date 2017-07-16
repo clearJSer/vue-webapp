@@ -10,10 +10,10 @@
  	 	<div class="other-login">
  	 		<img src="../../assets/images/go-1.png" style="width:100%;height:100%" alt="">
  	 	</div>
- 	 	<div class="header">
+ 	 	<div class="header"  @click.stop="hotbody">
  	 	 <img src="../../assets/images/go-2.png" alt="">
  	 	 <p >运动前热身训练</p>
- 	    <div ><a href="javascript:;" class="dohot" @click.stop="hotbody">&gt;</a></div>
+ 	    <div  ><a href="javascript:;" class="dohot">&gt;</a></div>
  	 	</div>
  	 <div class="btn-box">
  	 	<div class="btn" @click.stop="start">开始跑步</div>

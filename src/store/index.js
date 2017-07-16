@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    isOpenMenu: "first"
+    isOpenMenu: "first",
+    start:false
   },
   mutations: {
    	vuexOpenMenu(state){
@@ -13,6 +14,13 @@ const store = new Vuex.Store({
    	vuexCloseMenu(state){
    		state.isOpenMenu = false
    	}
+    ,
+    start(state){
+      state.start = true
+    },
+    stop(state){
+      state.start = false
+    }
 
   }
 })
