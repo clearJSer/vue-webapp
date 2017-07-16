@@ -43,11 +43,6 @@ const tagBarData = [
     router:'/friends'
   },
   {
-    title:'训练计划',
-    iconText:'&#xe77d;',
-    router:'/plan'
-  },
-  {
     title:'活 动',
     iconText:'&#xe604;',
     router:'/activity'

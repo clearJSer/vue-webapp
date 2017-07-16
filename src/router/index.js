@@ -15,6 +15,7 @@ import Splash from '@/components/Splash'
 import Go from '@/components/sport/Go'
 import Start from '@/components/sport/Start'
 import Warmup from '@/components/sport/Warmup'
+import Hotsport from '@/components/sport/Hotsport'
 
 Vue.use(Router)
 
@@ -90,6 +91,11 @@ export default new Router({
           path: '/warmup',
           name: 'Warmup',
           component: Warmup
+        },
+        {
+          path: '/hotsport',
+          name: 'Hotsport',
+          component: Hotsport
         }
       ]
     }

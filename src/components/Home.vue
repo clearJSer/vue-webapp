@@ -25,7 +25,7 @@
     </section>
     <section class="km">
       <div class="km-box">
-        <span class="km-num">0.00</span>
+        <span class="km-num">{{kmNum}}</span>
         <span class="km-text">km</span>
       </div>
     </section>
@@ -37,6 +37,11 @@
 
 <script >
     export default{
+      data(){
+        return{
+          kmNum:"0.00"
+        }
+      },
       methods:{
         openMenu:function(){
          this.$store.commit('vuexOpenMenu')
@@ -44,7 +49,18 @@
         go(){
           //跳转到开始跑步页面
           this.$router.push({name:'Go'})
+        },
+        add(){
+          var timer = setInterval(()=>{
+            this.kmNum  = (parseFloat(this.kmNum)+0.01).toFixed(2)
+            if(this.kmNum > 2){
+              clearInterval(timer)
+            }
+          },1000)
         }
+      },
+      mounted(){
+       // this.add()
       }
     }
 </script>

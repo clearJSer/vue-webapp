@@ -2,7 +2,7 @@
 	<div class="friends-box">
 		<my-header title="" :showmenu="showmenu" />
 		<header class="">
-			<a href=""><span class="yo-ico camera">&#xe600;</span></a>
+			<a href="javascript:;"><span class="yo-ico camera" @click.stop="photo">&#xe600;</span></a>
 			<dl>
 				<dt></dt>
 				<dd class="username">红色柠檬</dd>
@@ -11,19 +11,52 @@
 		<section>
 			<p class="title">推荐好友</p>
 		</section>
+		<section class="addfriends">
+			<ul>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+				<li><img src="../assets/images/haoyou.png" alt=""></li>
+			</ul>
+		</section>
+		<mt-actionsheet
+		  :actions="actions"
+		  v-model="sheetVisible">
+		</mt-actionsheet>
 	</div>
 </template>
 
 <script>
 	import Header from './Header'
+	import { Actionsheet } from 'mint-ui';
+	import Vue from 'vue'
+	Vue.component(Actionsheet.name, Actionsheet);
 	export default{
 		data(){
 			return{
-				"showmenu":true
+				"showmenu":true,
+				actions:[
+					{name:'拍照',method:this.takephoto},
+					{name:'从相册中选择',method:this.takephoto}
+				],
+				sheetVisible :false
 			}
 		},
 		components:{
 			'my-header' : Header
+		},
+		methods:{
+			photo(){
+				this.sheetVisible = true
+			},
+			takephoto(){
+				alert("kacha")
+			}
 		}
 	}
 </script>
@@ -68,6 +101,21 @@
 				margin:0.1rem 0;
 				padding-left:.1rem;
 				font-size:.16rem;
+			}
+		}
+		.addfriends{
+			overflow:scroll;
+			ul{
+				@include flexbox();
+				background:#fff;
+				li{
+					width:1.5rem;
+						height:2.3rem;
+					img{
+						width:1.5rem;
+						height:2.3rem;
+					}
+				}
 			}
 		}
  	}

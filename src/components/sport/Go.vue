@@ -39,7 +39,7 @@ export default {
   },
   methods : {
   	hotbody(){
-  		console.log(1)
+  		this.$router.push({name:'Hotsport'})
   	},
   	start(){
   	   this.$router.push({name:'Start'})
